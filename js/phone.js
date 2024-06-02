@@ -25,21 +25,22 @@ const displayPhones = (phones, isShowAll) => {
     }
 
     phones.forEach(phone => {
-        // console.log(phone);
+        console.log(phone);
         const phoneCard = document.createElement('div');
-        phoneCard.classList = `card bg-gray-100 p-4 shadow-xl`;
+        phoneCard.classList = `card bg-white p-4 rounded-lg border-solid border-2 border-gray-300 `;
         // 3: set inner html
         phoneCard.innerHTML = `
-        <figure><img src="${phone.image}" alt="Shoes" /></figure>
-        <div class="card-body">
-            <h2 class="card-title">${phone.phone_name}</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-center">
-                <button onclick="handleShowDetail('${phone.slug}')" class="btn btn-primary">Show Details</button>
+        <figure><img src="${phone.image}" alt="Shoes" class="bg-blue-100 rounded-lg p-20 md:p-10 lg:p-28" /></figure>
+        <div class="text-center mt-6 space-y-4">
+            <h2 class="font-bold text-2xl">${phone.phone_name}</h2>
+            <p class="text-[#706F6F] px-2">There are many variations of passages of available, but the majority have suffered</p>
+            <P class="text-2xl font-bold" >$999</P>
+            <div class="justify-center">
+                <button onclick="handleShowDetail('${phone.slug}')" class="btn bg-[#0D6EFD] text-white border-0">Show Details</button>
             </div>
         </div>
         `;
-        // 4 append child
+
         phoneContainer.appendChild(phoneCard);
     });
 
@@ -49,7 +50,6 @@ const displayPhones = (phones, isShowAll) => {
 
 // 
 const handleShowDetail = async (id) => {
-    // console.log('clicked show details', id)
     // load single phone data
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
     const data = await res.json();
@@ -66,13 +66,18 @@ const showPhoneDetails = (phone) => {
 
     showDetailContainer.innerHTML = `
     
-        <img src="${phone.image}" alt="" />
-        <h1 class="text-2xl font-bold">${phone.name}</h1>
-        <p><span>Storage:</span>${phone?.mainFeatures?.storage}</p>
-        <p><span>GPS:</span>${phone.others?.GPS || 'No GPS available'}</p>
-        <p><span>GPS:</span>${phone.others?.GPS ? phone.others.GPS : 'No GPS available in this device'}</p>
+        <img src="${phone.image}" alt="" class="md:px-28 p-4 bg-blue-100"/>
+        <h1 class="text-2xl font-bold mt-3">${phone.name}</h1>
+        <P class="text-base mt-3">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</P>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">Storage:</span>${phone?.mainFeatures?.storage}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">Display Size:</span>${phone?.mainFeatures?.displaySize}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">ChipSet:</span>${phone?.mainFeatures?.chipSet}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">Memory:</span>${phone?.mainFeatures?.memory}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">Slug:</span>${phone.slug}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">Release Date:</span>${phone.releaseDate}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold mt-3">Brand:</span>${phone.brand}</p>
+        <p class="mt-3 text-xl"><span class="font-semibold">GPS:</span>${phone.others?.GPS ? phone.others.GPS : 'No GPS available in this device'}</p>
     `
-
     // show the modal
     show_details_modal.showModal();
 }
